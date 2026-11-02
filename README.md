@@ -7,4 +7,4 @@ Python 백엔드 신입 개발자입니다. Django/DRF·Celery로 결제·인증
 
 ## 글
 
-- [AI가 쓴 코드를 믿지 않고, 재서 고친 기록](https://github.com/gotoUSA/gotoUSA/blob/main/docs/ai-code-verification.ko.md) — mock 서버에서 통과한 기능을 실제 API로 다시 재고, 고친 코드가 작업을 잃는 걸 출시 전에 찾아 되돌린 이야기
+- [AI가 쓴 코드를 믿지 않고, 재서 고친 기록](https://github.com/gotoUSA/gotoUSA/blob/main/docs/ai-code-verification.ko.md) — AI가 쓴 코드에서 찾은 결함(결제사에 없는 서명을 검증하던 웹훅, mock 서버에서만 통과한 기능 등)과, 그 뒤 AI를 어떻게 쓰는지
