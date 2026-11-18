@@ -71,7 +71,7 @@ CLAUDE.md에는 "아래 규칙 다수가 자동으로 검사된다"는 문장과
 
 | 유형 | 내용 | 커밋 |
 |---|---|---|
-| AI 에이전트로 수행한 머지 결과를 검토하지 않음 | 2025-12-14 머지 충돌 해결 결과, 테스트는 한쪽 브랜치 것이, 주문과 결제 코드는 다른 쪽 브랜치의 이전 코드가 남았습니다. 그 결과 이미 반영되어 있던 12월 수정(주문 취소 시 포인트 환불, 상품 ID 순 락 등)이 사라졌습니다. CI가 `pip install` 단계에서 실패하고 있어서 9개월 동안 발견되지 않았습니다 | [`8553a9bd`](https://github.com/gotoUSA/selfhealing/commit/8553a9bd) |
+| AI 에이전트로 수행한 머지 결과를 검토하지 않음 | 2025-12-14 머지 충돌 해결 결과, 테스트는 한쪽 브랜치 것이, 주문과 결제 코드는 다른 쪽 브랜치의 이전 코드가 남았습니다. 그 결과 이미 반영되어 있던 12월 수정(주문 취소 시 포인트 환불, 상품 ID 순 락 등)이 사라졌습니다. CI가 `pip install` 단계에서 실패하고 있어 머지 시점에 테스트로 잡히지 않았고, 이후 라이브러리 개발로 넘어가 주문 코드를 다루지 않아 2026-09 재점검에서 발견했습니다 | [`8553a9bd`](https://github.com/gotoUSA/selfhealing/commit/8553a9bd) |
 | 기능 추가 22분 뒤, 테스트 설정이 그 기능을 비활성화함 | 로그인, 결제, 주문에 rate limit(throttling)을 추가하고 22분 뒤, 테스트 캐시를 DummyCache로 바꾸는 커밋이 들어갔습니다. 그 커밋 주석에 "throttling도 비활성화되어 있음"이라고 적혀 있었습니다(두 커밋 모두 Claude가 작성). 이후 10개월 동안 throttling을 실제로 거친 테스트는 없었습니다 | [`1229adfe`](https://github.com/gotoUSA/selfhealing/commit/1229adfe) → [`4b6382d2`](https://github.com/gotoUSA/selfhealing/commit/4b6382d2) |
 | mock이 라이브러리가 실제로 발생시키지 않는 예외를 발생시킴 | Celery의 `retry(exc=e)`는 재시도 횟수를 모두 쓰면 `MaxRetriesExceededError`가 아니라 원래 예외를 다시 발생시킵니다. 따라서 `MaxRetriesExceededError`를 처리하던 두 곳(재시도 소진 시 롤백, 조회 소진 시 알림)은 실행될 수 없는 코드였습니다. 테스트는 `retry`를 mock해 그 예외를 강제로 발생시켜서 통과했습니다 | [`831be3d3`](https://github.com/gotoUSA/selfhealing/commit/831be3d3) |
 | 시간 제한이 두 개일 때, 어느 쪽이 먼저 적용되는지 mock으로는 드러나지 않음 | 결제 승인 태스크의 `soft_time_limit`(25초)이 HTTP 타임아웃(30초)보다 먼저 발생했습니다. 그래서 토스가 결제를 승인했어도 응답이 25초 넘게 늦으면, 조회 대사 없이 롤백될 수 있었습니다(결제는 됐지만 주문은 실패한 고아 결제). 테스트는 타임아웃을 즉시 발생하는 오류로 mock해 통과했고, 실제 워커와 28초 뒤에 응답하는 로컬 서버로 실행해서 발견했습니다 | [`831be3d3`](https://github.com/gotoUSA/selfhealing/commit/831be3d3) |
