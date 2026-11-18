@@ -5,7 +5,7 @@ Python 백엔드 신입 개발자입니다. Django/DRF와 Celery로 결제, 인�
 ## 프로젝트
 
 - [Django 쇼핑몰 REST API](https://github.com/gotoUSA/selfhealing): 동시 주문과 중복 결제 방지, 상품 목록 요청 1.3초 → 36ms
-- [쇼핑몰 Kubernetes 배포](https://github.com/gotoUSA/shopping-k8s): 로컬 클러스터 배포, 무중단 교체, 자동 확장(HPA), Helm 전환과 장애 시험 기록
+- [쇼핑몰 Kubernetes 배포](https://github.com/gotoUSA/shopping-k8s): 로컬 클러스터 배포, 무중단 교체(교체 중 연결 실패 7건 → 0건), 자동 확장(HPA), Helm 전환과 장애 시험 기록
 - [Baldur](https://github.com/baldurhq/baldur): Python 외부 API 장애 대응 라이브러리
 - [Baldur 문서 RAG](https://github.com/gotoUSA/baldur-docs-rag): Baldur 공개 문서 질의응답, 모델의 인용 번호와 Tool Calling 인자를 코드로 검증하고 질문 세트 3개로 검색 품질 측정
 - [Olist 데이터 품질 검사와 분석](https://github.com/gotoUSA/olist-data-quality): 공개 주문 데이터 약 10만 건, 검사 기준을 먼저 정하고 자동 검사와 오류 주입 테스트를 만든 뒤 배송 지연과 리뷰 점수의 관계 분석
